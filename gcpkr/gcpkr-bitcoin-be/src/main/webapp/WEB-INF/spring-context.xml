@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <value>/WEB-INF/config.properties</value>
+    </property>
+  </bean>
+  <bean class="kr.gitcoin.rest.service.TickerService" id="tickerService">
+    <property name="tickerDao" ref="tickerDao" />
+  </bean>
+  <bean class="kr.gitcoin.rest.dao.impl.TickerDaoImpl" id="tickerDao">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+  </bean>
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="/WEB-INF/mybatis-config.xml" />
+  </bean>
+  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg ref="sqlSessionFactory" />
+  </bean>
+  <bean id="dataSource"
+    class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <property name="driverClass" value="${jdbc.driverClass}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <settings>
+    <setting name="cacheEnabled" value="true" />
+    <setting name="defaultExecutorType" value="BATCH" />
+    <setting name="useGeneratedKeys" value="false" />
+  </settings>
+  <typeAliases>
+    <typeAlias alias="Ticker" type="kr.gitcoin.rest.model.TickerVo" />
+    <typeAlias alias="GitcoinCriteria" type="kr.gitcoin.rest.model.GitcoinCriteria" />
+  </typeAliases>
+  <mappers>
+    <mapper resource="kr/gitcoin/rest/dao/TickerDao.xml" />
+  </mappers>
+</configuration>

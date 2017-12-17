@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gitcoin.rest.Ticker">
+  <resultMap type="Ticker" id="TickerMap">
+    <id column="timestamp" property="timestamp" />
+    <result column="open" property="open" />
+    <result column="high" property="high" />
+    <result column="low" property="low" />
+    <result column="closed" property="closed" />
+    <result column="created_at" property="createdAt" />
+  </resultMap>
+  <select id="count" parameterType="GitcoinCriteria"
+    resultType="Long">
+    <![CDATA[
+    select count(1)
+      from tickers
+     where 1 = 1
+    ]]>
+    <if test="timestampStart != null"><![CDATA[and timestamp >= #{timestampStart}]]></if>
+    <if test="timestampStop != null"><![CDATA[and timestamp < #{timestampStop}]]></if>
+  </select>
+  <insert id="create" parameterType="Ticker">
+    <![CDATA[
+    insert
+      into tickers (
+           timestamp
+         , open
+         , high
+         , low
+         , closed
+           )
+    values (
+           #{timestamp}
+         , #{open}
+         , #{high}
+         , #{low}
+         , #{closed})
+    ]]>
+  </insert>
+  <delete id="delete" parameterType="long">
+    <![CDATA[
+    delete
+      from tickers
+     where timestamp = #{timestamp}
+    ]]>
+  </delete>
+  <select id="get" parameterType="long" resultMap="TickerMap">
+    <![CDATA[
+    select *
+      from tickers
+     where timestamp = #{timestamp}
+    ]]>
+  </select>
+  <select id="list" parameterType="GitcoinCriteria"
+    resultMap="TickerMap">
+    <![CDATA[
+    select *
+      from tickers
+     where 1 = 1
+    ]]>
+    <if test="timestampStart != null"><![CDATA[and timestamp >= #{timestampStart}]]></if>
+    <if test="timestampStop != null"><![CDATA[and timestamp < #{timestampStop}]]></if>
+    <![CDATA[
+     order by timestamp
+     limit #{offset}
+         , #{limit}
+    ]]>
+  </select>
+  <update id="update" parameterType="Ticker">
+    <![CDATA[
+    update tickers
+       set updated_at = current_timestamp()
+    ]]>
+    <if test="open != null"><![CDATA[, open = #{open}]]></if>
+    <if test="high != null"><![CDATA[, high = #{high}]]></if>
+    <if test="low != null"><![CDATA[, low = #{low}]]></if>
+    <if test="closed != null"><![CDATA[, closed = #{closed}]]></if>
+    <![CDATA[
+     where timestamp = #{timestamp}
+    ]]>
+  </update>
+</mapper>
