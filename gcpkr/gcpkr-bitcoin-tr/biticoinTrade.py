@@ -68,7 +68,7 @@ class bitcoinTr():
             self.conn = conn
             self.cursor = cursor
 
-            buy(self).trade()
+            buy().trade(self)
             #sell(self).trade()
             conn.commit()
             conn.close()

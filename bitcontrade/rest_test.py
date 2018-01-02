@@ -36,4 +36,4 @@ with open(now+'.csv', 'a') as f:
                 writer.writerow({'traded_at' : timestamp, 'open' : open_p, 'high' : high_p, 'low' : low_p, 'close' : closed_p}) # write data (append)
                 end_time = time.time()
                 sleep_time = end_time - start_time
-                if sleep_time < window:
+               # if sleep_time < window:

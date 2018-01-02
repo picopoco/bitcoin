@@ -43,4 +43,3 @@ EXPORT205 = "mv "+now+".csv 201711_1h"
 
 os.system(EXPORT204) # execute EXPORT204
 os.system(EXPORT205)
-~

@@ -1,9 +1,9 @@
 from selectTrade import tTrade
-
+from common  import common
 class buy():
 
-    def __init__(self,trade):
-        trade = trade
+    def __init__(self):
+       # trade = trade
         pass
 
     @classmethod
@@ -19,6 +19,8 @@ class buy():
     @classmethod
     def tradeExec(self,ptrade):
         j = 0
+        tPrice = 0
+        t_accumulate_amoun = 0
         #ptrade =ptrade
         r = ptrade.r
         cursor = ptrade.cursor
@@ -28,7 +30,7 @@ class buy():
                 if float(r[i + 1]['close']) < float(r[i + 2]['close']):
                     if float(r[i + 2]['close']) < float(r[i + 3]['close']):
                         if float(r[i + 3]['close']) < float(r[i + 4]['close']):
-                            #print(i, j, "close", r[i]['close'], r[i + 1]['close'], r[i + 2]['close'], r[i + 3]['close'],r[i + 4]['close'])
+                            print(i, j, "close", r[i]['close'], r[i + 1]['close'], r[i + 2]['close'], r[i + 3]['close'],r[i + 4]['close'])
                             j += 1
                             #  try:
                             # INSERT
@@ -39,25 +41,11 @@ class buy():
                             ptrade.trading_at = str(r[i]['trading_at'])
 
                             resT = tTrade.select(ptrade)
-                            if resT :
-                                t_accumulate_amoun = resT['accumulate_amout']
-                                tPrice = resT['price']
-                                print("###__", i, resT['meme_type'], ptrade.difPrice, ptrade.price, ptrade.trading_at)
+                            common.buyStrage( resT, ptrade, i)
+                            #ptrade.conn.commit()
+                            common.sellStrage( resT, ptrade, i)
+                           # ptrade.conn.commit()
 
-                            if not resT or resT['meme_type'] == 's':
-                                isql = self.isqlBuyTrade(ptrade, tPrice, t_accumulate_amoun)
-                                print('isqlBuyTrade',isql)
-                                return ptrade.cursor.execute(isql)
         return False
 
-    @classmethod
-    def isqlBuyTrade(self,ptrade,tPrice, t_accumulate_amoun):
-        print("isqlBuyTrade", ptrade.difPrice, ptrade.price, ptrade.trading_at)
-        isql = (
-            " INSERT INTO trades "
-            + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
-   #         + "values("+ ptrade.trading_at + "," + str(ptrade.price) + ", 'b', " + str(ptrade._VOLUME) + " , 0+" + str( ptrade.difPrice * 1) + ",0, 0 / " + str(ptrade.difPrice) + "," + " sysdate() "
-            + "values(" + ptrade.trading_at + "," + str(ptrade.price) + ", 'b', " + str(ptrade._VOLUME) + " , 0+" + str(ptrade.difPrice * 1) + ",0, 0 / " + str(ptrade.difPrice) + "," + " sysdate() "
-            + ")"
-        )
-        return isql
+

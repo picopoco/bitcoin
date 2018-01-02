@@ -14,11 +14,12 @@ class tTrade():
             + " traded_at <= "+ ptrade.trading_at
             + " order by traded_at desc limit 1"
         )
-        print('sSqlTrade',sSqlTrade)
+        print('select',sSqlTrade)
         cursor.execute(sSqlTrade)
         t = [dict((cursor.description[i][0], value)
                   for i, value in enumerate(row)) for row in cursor.fetchall()]
 
-        print('t: ', len(t) ,t)
-        return t[0]
+        print('t: ', len(t) ,type(t),t)
+
+        return t
 
