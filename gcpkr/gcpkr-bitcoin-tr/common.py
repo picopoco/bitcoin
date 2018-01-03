@@ -46,16 +46,14 @@ class common:
 
     @classmethod
     def isqlSellTrade(self,ptrade,tPrice,t_accumulate_amount):
-        print("isqlSellTrade", ptrade.difPrice, ptrade.price, ptrade.trading_at)
+        profit_amount = float(ptrade.price) - tPrice
+        accumulate_amout = profit_amount + t_accumulate_amount
+        print("isqlSellTrade", tPrice, ptrade.price,profit_amount,ptrade.trading_at)
         isql = (
             " INSERT INTO trades "
             + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
             + "values("
-            + ptrade.trading_at + "," + str(ptrade.price) + ", 's', " + str(
-                ptrade._VOLUME) + " , 0+" + str(
-                int(tPrice) + int(t_accumulate_amount)) + ",0, 0 / " + str(
-                ptrade.difPrice) + "," + " sysdate() "
-            + ")"
+            + ptrade.trading_at + "," + str(ptrade.price) + ", 's', " + str(ptrade._VOLUME) + " , 0+" + str(profit_amount) + ","+str(accumulate_amout)+", 0 / " + str( ptrade.difPrice) + "," + " sysdate() " + ")"
         )
         return isql
 

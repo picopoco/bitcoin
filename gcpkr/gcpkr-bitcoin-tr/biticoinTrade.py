@@ -5,9 +5,10 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
 import pymysql
+#from matplotlitb import pyplot as plt
 
 
-#from sell_trade import sell
+from sell_trade import sell
 from buy_trade  import buy
 
 
@@ -67,9 +68,11 @@ class bitcoinTr():
             self.r = r
             self.conn = conn
             self.cursor = cursor
-
-            buy().trade(self)
-            #sell(self).trade()
+            # plt.plot([1, 2, 3, 4])
+            # plt.ylabel('some numbers')
+            # plt.show()
+           #buy().trade(self)
+           # sell().trade(self)
             conn.commit()
             conn.close()
                 #print(i,"trading_at", r[i]['trading_at'], r[i+1]['trading_at'], r[i+2]['trading_at'])

@@ -8,6 +8,8 @@ import pymysql
 
 from sell_trade import sell
 from buy_trade  import buy
+from matplotlitb import pyplot as plt
+
 app = Flask(__name__)
 with app.app_context():
     # within this block, current_app points to app.
@@ -37,6 +39,9 @@ class trade():
     def trade(self):
         try:
             print("trades",self)
+            plt.plot([1, 2, 3, 4])
+            plt.ylabel('some numbers')
+            plt.show()
 
             _timeStart = '20161106030001'
             _limit = '100000'
@@ -52,7 +57,7 @@ class trade():
             + " where  trading_at >= " + _timeStart
             + " order by trading_at desc limit " + _limit + " offset " + _offset
             )
-            print(sSqlpredict)
+            #print(sSqlpredict)
             cursor.execute(sSqlpredict)
 
 
@@ -66,7 +71,7 @@ class trade():
             self.cursor = cursor
 
           #  for sr ,in sRes:
-            buy.trade(self)
+          #  buy.trade(self)
            # sell.trade(self)
             conn.commit()
             conn.close()
@@ -75,6 +80,7 @@ class trade():
             return jsonify(
                 {"resultMessage": "OK", "resultCount": sRes.__len__(), "totalCount": _limit, "resultCode": "200",
                  'resultData': sRes})
+
 
         except Exception as e:
             print (e)

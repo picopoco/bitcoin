@@ -43,7 +43,7 @@ class buy():
                             resT = tTrade.select(ptrade)
                             common.buyStrage( resT, ptrade, i)
                             #ptrade.conn.commit()
-                            common.sellStrage( resT, ptrade, i)
+                           # common.sellStrage( resT, ptrade, i)
                            # ptrade.conn.commit()
 
         return False

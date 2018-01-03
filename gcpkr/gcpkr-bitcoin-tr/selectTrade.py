@@ -19,7 +19,8 @@ class tTrade():
         t = [dict((cursor.description[i][0], value)
                   for i, value in enumerate(row)) for row in cursor.fetchall()]
 
-        print('t: ', len(t) ,type(t),t)
+        if len(t)>0:
+            print('t: ', len(t) ,type(t),t)
 
         return t
 
