@@ -6,6 +6,8 @@ from flask_restful import Resource, Api
 from flask_restful import reqparse
 import pymysql
 #from matplotlitb import pyplot as plt
+import matplotlib.pyplot as plt
+
 
 
 from sell_trade import sell
@@ -52,10 +54,10 @@ class bitcoinTr():
             cursor = conn.cursor()
 
             sql = (
-            "SELECT trading_at, close"
-            + " FROM predicts "
-            + " where  trading_at >= " + _timeStart
-            + " order by trading_at desc limit " + _limit + " offset " + _offset
+            "SELECT traded_at, profit_amount"
+            + " FROM trades "
+            + " where  traded_at >= " + _timeStart
+            + " order by traded_at desc limit " + _limit + " offset " + _offset
             )
             print(sql)
             cursor.execute(sql)
@@ -64,6 +66,12 @@ class bitcoinTr():
             r = [dict((cursor.description[i][0], value)
                       for i, value in enumerate(row)) for row in cursor.fetchall()]
             print ('  r = r',len(r),r[0])
+            x = [ x['traded_at'] for x in r ]
+            y = [ x['profit_amount'] for x in r ]
+
+            plt.plot(x,y)
+            plt.ylabel('profit_amount')
+            plt.show()
 
             self.r = r
             self.conn = conn
@@ -73,8 +81,8 @@ class bitcoinTr():
             # plt.show()
            #buy().trade(self)
            # sell().trade(self)
-            conn.commit()
-            conn.close()
+           # conn.commit()
+           # conn.close()
                 #print(i,"trading_at", r[i]['trading_at'], r[i+1]['trading_at'], r[i+2]['trading_at'])
 
             return jsonify(
