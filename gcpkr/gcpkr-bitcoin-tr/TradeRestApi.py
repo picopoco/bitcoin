@@ -129,7 +129,7 @@ class buy(Resource):
                                print("__", i,self.difPrice,self.price,self.trading_at)
 
                                # isql = (
-                               #     " INSERT INTO trades "
+                               #     " newcoinObj trades "
                                #     + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
                                #     + "values("
                                #     + trading_at + "," + str(price) + ", 'b', " + str(
@@ -157,7 +157,7 @@ class buy(Resource):
         print("self", self.difPrice, self.price, self.trading_at)
 
         isql = (
-            " INSERT INTO trades "
+            " newcoinObj trades "
             + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
             + "values("
             + self.trading_at + "," + str(self.price) + ", 'b', " + str(

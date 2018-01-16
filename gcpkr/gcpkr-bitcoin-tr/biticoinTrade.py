@@ -46,19 +46,27 @@ class bitcoinTr():
             print("trades",self)
 
             _timeStart = '20161106030001'
-            _limit = '100000'
-            _offset = '0'
+            _limit = '1000'
+            _offset = '100'
 
             print(_timeStart, _limit, _offset)
             conn = mysql.connect()
             cursor = conn.cursor()
 
+            # sql = (
+            # "SELECT trading_at, close"
+            # + " FROM predicts "
+            # + " where  trading_at >= " + _timeStart
+            # + " order by trading_at desc limit " + _limit + " offset " + _offset
+            # )
+
             sql = (
-            "SELECT traded_at, profit_amount"
-            + " FROM trades "
-            + " where  traded_at >= " + _timeStart
-            + " order by traded_at desc limit " + _limit + " offset " + _offset
+                "SELECT traded_at, close"
+                + " FROM tickers "
+                + " where  traded_at >= " + _timeStart
+                + " order by traded_at desc limit " + _limit + " offset " + _offset
             )
+
             print(sql)
             cursor.execute(sql)
             print("11")
@@ -67,10 +75,10 @@ class bitcoinTr():
                       for i, value in enumerate(row)) for row in cursor.fetchall()]
             print ('  r = r',len(r),r[0])
             x = [ x['traded_at'] for x in r ]
-            y = [ x['profit_amount'] for x in r ]
+            y = [ x['close'] for x in r ]
 
-            plt.plot(x,y)
-            plt.ylabel('profit_amount')
+            plt.plot(x, y)
+            plt.ylabel('tickers close')
             plt.show()
 
             self.r = r

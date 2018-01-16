@@ -50,7 +50,7 @@ class common:
         accumulate_amout = profit_amount + t_accumulate_amount
         print("isqlSellTrade", tPrice, ptrade.price,profit_amount,ptrade.trading_at)
         isql = (
-            " INSERT INTO trades "
+            " newcoinObj trades "
             + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
             + "values("
             + ptrade.trading_at + "," + str(ptrade.price) + ", 's', " + str(ptrade._VOLUME) + " , 0+" + str(profit_amount) + ","+str(accumulate_amout)+", 0 / " + str( ptrade.difPrice) + "," + " sysdate() " + ")"
@@ -62,7 +62,7 @@ class common:
         print("isqlBuyTrade", ptrade.difPrice, ptrade.price, ptrade.trading_at)
        # accumulate_amout = tPrice + int(t_accumulate_amoun)
         isql = (
-            " INSERT INTO trades "
+            " newcoinObj trades "
             + " (traded_at, price, meme_type, volume, profit_amount, accumulate_amout, profit_rate, created_at)"
             #         + "values("+ ptrade.trading_at + "," + str(ptrade.price) + ", 'b', " + str(ptrade._VOLUME) + " , 0+" + str( ptrade.difPrice * 1) + ",0, 0 / " + str(ptrade.difPrice) + "," + " sysdate() "
             + "values(" + ptrade.trading_at + "," + str(ptrade.price) + ", 'b', " + str(ptrade._VOLUME) + " , 0+" + str(

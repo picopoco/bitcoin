@@ -10,7 +10,7 @@ create table tickers (
   primary key(timestamp)
 );
 
-insert into tickers (open,high,low,closed,volume,timestamp) values
+newcoinObj tickers (open,high,low,closed,volume,timestamp) values
 (8252000,8440000,7600000,8134000,26213.48039439,1509494643000),
 (8250000,8440000,7600000,8133000,26204.48506424,1509494643001),
 (8252000,8440000,7600000,8134000,26213.48039439,1509494643002),

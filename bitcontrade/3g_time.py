@@ -7,7 +7,7 @@ import csv
 import datetime
 from time import localtime
 from pprint import pprint
-from google.cloud import bigquery
+#from google.cloud import bigquery
 
 
 def stream_data(dataset_id, table_id, time_stamp, open_p, high_p, low_p, closed_p):
